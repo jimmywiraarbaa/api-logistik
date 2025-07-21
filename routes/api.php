@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/supplier/{id}', [SupplierController::class, 'destroy']);
 
     // CRUD Satuan
-    Route::get('/satuan', [BarangController::class, 'index']);
-    Route::post('/satuan/add', [BarangController::class, 'store']);
-    Route::get('/satuan/{id}', [BarangController::class, 'show']);
-    Route::put('/satuan/{id}', [BarangController::class, 'update']);
-    Route::delete('/satuan/{id}', [BarangController::class, 'destroy']);
+    Route::get('/satuan', [SatuanController::class, 'index']);
+    Route::post('/satuan/add', [SatuanController::class, 'store']);
+    Route::get('/satuan/{id}', [SatuanController::class, 'show']);
+    Route::put('/satuan/{id}', [SatuanController::class, 'update']);
+    Route::delete('/satuan/{id}', [SatuanController::class, 'destroy']);
 });
