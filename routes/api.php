@@ -15,7 +15,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // CRUD Barang
     Route::get('/barang', [BarangController::class, 'index']);
-    Route::post('/barang', [BarangController::class, 'store']);
+    Route::post('/barang/add', [BarangController::class, 'store']);
     Route::get('/barang/{id}', [BarangController::class, 'show']);
     Route::put('/barang/{id}', [BarangController::class, 'update']);
     Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
