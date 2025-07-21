@@ -42,27 +42,27 @@ class KaryawanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $karyawan = User::find($id);
+        $user = User::findOrFail($id);
 
-        if (!$karyawan) {
-            return response()->json(['message' => 'Data karyawan tidak ditemukan'], 404);
+        // Ambil hanya field yang boleh diupdate
+        $data = $request->only(['name', 'email', 'role', 'password']);
+
+        // Kalau password dikirim, hash dulu
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        } else {
+            unset($data['password']); // Jangan update password kalau tidak dikirim
         }
 
-        $request->validate([
-            'name' => 'sometimes|required|string',
-            'email' => 'sometimes|required|email|unique:users,email,' . $id,
-            'password' => 'sometimes|nullable|confirmed|min:6',
-            'role' => 'sometimes|required|numeric|min:1',
-        ]);
-
-        $karyawan->update($request->only(['name', 'email', 'password', 'role']));
+        // Update user
+        $user->update($data);
 
         return response()->json([
             'message' => 'Karyawan telah diupdate',
-            'data' => $karyawan
-        ], 200);
+            'data' => $user
+        ]);
     }
 
 
