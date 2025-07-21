@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\SatuanController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +12,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/karyawan', [AuthController::class, 'register'])->name('karyawan.add');
+    // CRUD Karyawan
+    Route::get('/karyawan', [KaryawanController::class, 'index']);
+    Route::get('/karyawan/{id}', [KaryawanController::class, 'show']);
+    Route::post('/karyawan/add', [AuthController::class, 'register']);
+    Route::patch('/karyawan/{id}', [KaryawanController::class, 'update']);
+    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy']);
 
     // CRUD Barang
     Route::get('/barang', [BarangController::class, 'index']);
